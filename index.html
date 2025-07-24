@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Password Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #292b3d;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-top: 15px;
+      background: #ff6f61;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #ff3c2f;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .input-group input {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+    <div class="input-group">
+      <input type="text" id="password" placeholder="Your password" readonly>
+      <button onclick="copyPassword()">Copy</button>
+    </div>
+    <div class="settings">
+      <label>Password Length:
+        <input type="number" id="length" min="4" max="20" value="12">
+      </label>
+    </div>
+    <button onclick="generatePassword()">Generate Password</button>
+  </div>
+
+  <script>
+    function generatePassword() {
+      const length = document.getElementById('length').value;
+      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+      let password = "";
+
+      for (let i = 0; i < length; i++) {
+        const randomChar = charset.charAt(Math.floor(Math.random() * charset.length));
+        password += randomChar;
+      }
+
+      document.getElementById('password').value = password;
+    }
+
+    function copyPassword() {
+      const passwordField = document.getElementById('password');
+      passwordField.select();
+      passwordField.setSelectionRange(0, 99999); // For mobile
+      document.execCommand('copy');
+      alert("Password copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
